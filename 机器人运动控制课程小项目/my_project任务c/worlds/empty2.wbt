@@ -1,0 +1,403 @@
+#VRML_SIM R2020a utf8
+WorldInfo {
+  contactProperties [
+    ContactProperties {
+      coulombFriction [
+        10
+      ]
+    }
+  ]
+}
+Viewpoint {
+  orientation 0.5047588746693455 -0.8323363765322267 -0.2289861016388095 5.312416749082478
+  position 5.1300334505609 1.595553890762386 5.854394190330025
+  follow "myrobot"
+  followType "None"
+}
+TexturedBackground {
+}
+TexturedBackgroundLight {
+}
+RectangleArena {
+  floorSize 10 10
+  floorTileSize 1 1
+}
+DEF myrobot Robot {
+  translation 2.7984597021847732 0.05906443287481968 4.357034903695288
+  rotation 0.0003839172242367557 0.9999968707212964 0.002472075075610708 0.2586961308220253
+  children [
+    DEF LEFT_EYE DistanceSensor {
+      translation -0.16 -0.05 0.155
+      rotation 0 1 0 3.14
+      children [
+        DEF SENSOR Transform {
+          rotation 0 0 1 1.57
+          children [
+            Shape {
+              appearance PBRAppearance {
+                baseColor 0.975691 0.981481 0.0252992
+                roughness 1
+                metalness 0
+              }
+              geometry Cylinder {
+                height 0.004
+                radius 0.008
+              }
+            }
+          ]
+        }
+      ]
+      name "ds0"
+      lookupTable [
+        0 1024 0
+        0.05 1024 0
+        0.15 0 0
+      ]
+      numberOfRays 2
+      aperture 1
+    }
+    DEF RIGHT_EYE DistanceSensor {
+      translation -0.16 -0.05 -0.155
+      rotation 0 1 0 3.14
+      children [
+        USE SENSOR
+      ]
+      name "ds1"
+      lookupTable [
+        0 1024 0
+        0.05 1024 0
+        0.15 0 0
+      ]
+      numberOfRays 2
+      aperture 1
+    }
+    DEF receiver111 Receiver {
+      name "receiver111"
+      type "serial"
+      channel 1
+    }
+    DEF emitter2 Emitter {
+      name "emitter2"
+      boundingObject USE SENSOR
+      physics Physics {
+      }
+      type "serial"
+      range 10
+      channel 2
+    }
+    HingeJoint {
+      jointParameters HingeJointParameters {
+        position 93.28462717227006
+        axis 0 0 1
+        anchor -0.1 -0.035 0
+      }
+      endPoint Solid {
+        translation -0.1 -0.035 0
+        rotation 0.8040782985059646 -0.42022411981802266 0.42055888885496334 4.496816016598846
+        children [
+          DEF wheel5 Shape {
+            appearance Appearance {
+              texture ImageTexture {
+                url [
+                  "textures/carpet.jpg"
+                ]
+              }
+            }
+            geometry Cylinder {
+              height 0.01
+              radius 0.025
+            }
+          }
+        ]
+        name "solid(4)"
+        boundingObject USE wheel5
+        physics Physics {
+        }
+      }
+    }
+    HingeJoint {
+      jointParameters HingeJointParameters {
+        position 96.9593831221338
+        axis 0 0 1
+        anchor 0.1 -0.035 0
+      }
+      endPoint Solid {
+        translation 0.1 -0.035 0
+        rotation 0.1525427122199631 0.6985531204519426 -0.6991096186260287 3.4445817176167504
+        children [
+          DEF wheel5 Shape {
+            appearance Appearance {
+              texture ImageTexture {
+                url [
+                  "textures/carpet.jpg"
+                ]
+              }
+            }
+            geometry Cylinder {
+              height 0.01
+              radius 0.025
+            }
+          }
+        ]
+        name "solid(3)"
+        boundingObject USE wheel5
+        physics Physics {
+        }
+      }
+    }
+    HingeJoint {
+      jointParameters HingeJointParameters {
+        position 70.58164286838742
+        axis 0 0 1
+        anchor 0 0 0.155
+      }
+      device [
+        DEF position_sensor_right PositionSensor {
+          name "position_sensor_right"
+        }
+        DEF motor_right RotationalMotor {
+          name "motor_right"
+          maxVelocity 50
+        }
+      ]
+      endPoint Solid {
+        translation 0 0 0.155
+        rotation 0.6172756265402345 0.556092572283364 -0.5565355801120287 4.248355479034254
+        children [
+          DEF wheel3 Shape {
+            appearance Appearance {
+              texture ImageTexture {
+                url [
+                  "textures/carpet.jpg"
+                ]
+              }
+            }
+            geometry Cylinder {
+              height 0.01
+              radius 0.06
+            }
+          }
+        ]
+        name "solid(1)"
+        boundingObject USE wheel3
+        physics Physics {
+        }
+      }
+    }
+    HingeJoint {
+      jointParameters HingeJointParameters {
+        position 6.501191413679651
+        axis 0 0 1
+        anchor 0 0 -0.155
+      }
+      device [
+        DEF position_sensor_left PositionSensor {
+          name "position_sensor_left"
+        }
+        DEF motor_left RotationalMotor {
+          name "motor_left"
+          maxVelocity 50
+        }
+      ]
+      endPoint Solid {
+        translation 0 0 -0.155
+        rotation 0.9882253145597338 0.10814824334116399 -0.10823439899373753 4.701340975960736
+        children [
+          DEF wheel4 Shape {
+            appearance Appearance {
+              texture ImageTexture {
+                url [
+                  "textures/carpet.jpg"
+                ]
+              }
+            }
+            geometry Cylinder {
+              height 0.01
+              radius 0.06
+            }
+          }
+        ]
+        name "solid(2)"
+        boundingObject USE wheel4
+        physics Physics {
+        }
+      }
+    }
+    DEF body Shape {
+      appearance Appearance {
+        texture ImageTexture {
+          url [
+            "textures/desktop_wood.jpg"
+          ]
+        }
+      }
+      geometry Cylinder {
+        height 0.02
+        radius 0.15
+      }
+    }
+  ]
+  name "myrobot"
+  boundingObject USE body
+  physics Physics {
+  }
+  controller "my_controller222222"
+  supervisor TRUE
+}
+Group {
+  children [
+    Solid {
+      translation -3.28 0.19452575692553842 1.49
+      rotation 0.9968365183806035 0.008510480084299325 0.07902232185636852 4.575230314330785e-16
+      children [
+        DEF eeee Shape {
+          appearance Appearance {
+            texture ImageTexture {
+              url [
+                "textures/rock.jpg"
+              ]
+            }
+          }
+          geometry Cylinder {
+            height 0.5
+            radius 0.3
+          }
+        }
+      ]
+      name "solid(5)"
+      boundingObject USE eeee
+      physics Physics {
+      }
+    }
+    Solid {
+      translation 0.8800000885270876 0.11715200006593934 -3.529999398169577
+      rotation -0.005357464430036659 0.9999856486767525 3.926243967875446e-06 6.346351285776816e-06
+      children [
+        DEF dddd Shape {
+          appearance Appearance {
+            texture ImageTexture {
+              url [
+                "textures/rock.jpg"
+              ]
+            }
+          }
+          geometry Box {
+            size 0.8 0.25 0.1
+          }
+        }
+      ]
+      name "solid(4)"
+      boundingObject USE dddd
+      physics Physics {
+      }
+    }
+    Solid {
+      translation -2.6900007666673433 0.25291199985126195 3.219990466491608
+      rotation 0.12941226595504882 0.12944385688201338 0.9831056674314764 1.5878384020804344
+      children [
+        DEF dddd Shape {
+          appearance Appearance {
+            texture ImageTexture {
+              url [
+                "textures/interlaced_parquetry.jpg"
+              ]
+            }
+          }
+          geometry DEF cccc Box {
+            size 0.6 1 0.2
+          }
+        }
+      ]
+      name "solid(3)"
+      boundingObject USE dddd
+      physics Physics {
+      }
+    }
+    Solid {
+      translation 2.44000787360056 0.38227472148561814 3.6400006196901225
+      rotation 0.9999970666247483 -0.00010683650704665395 0.0024197784731857805 -0.004600492738932565
+      children [
+        Shape {
+          appearance Appearance {
+            texture ImageTexture {
+              url [
+                "textures/interlaced_parquetry.jpg"
+              ]
+            }
+          }
+          geometry DEF cccc Box {
+            size 0.6 1 0.5
+          }
+        }
+      ]
+      name "solid(2)"
+      boundingObject USE cccc
+      physics Physics {
+      }
+    }
+    Solid {
+      translation -1.6799989875662371 0.08085500000002056 -3.85999747768345
+      rotation -1.5331639402945822e-05 0.9999999998611359 6.532166984063919e-06 9.13317767907039e-06
+      children [
+        Shape {
+          appearance Appearance {
+            texture ImageTexture {
+              url [
+                "textures/red_brick_wall.jpg"
+              ]
+            }
+          }
+          geometry DEF bbbb Box {
+            size 0.9 0.25 0.5
+          }
+        }
+      ]
+      name "solid(1)"
+      boundingObject USE bbbb
+      physics Physics {
+      }
+    }
+    Solid {
+      translation 3.4400013428660947 0.10734200020178992 1.6600002425811453
+      rotation -6.190169701188802e-10 1 6.496760899253469e-10 1.0472122771081225
+      children [
+        Shape {
+          appearance Appearance {
+            texture ImageTexture {
+              url [
+                "textures/grass.jpg"
+              ]
+            }
+          }
+          geometry DEF aaaa Box {
+            size 0.6 0.25 0.3
+          }
+        }
+      ]
+      boundingObject USE aaaa
+      physics Physics {
+      }
+    }
+  ]
+}
+Solid {
+  translation 2.793359168037591 0.118667527494086 4.358710975495234
+  children [
+    DEF fk Shape {
+      appearance Appearance {
+        texture ImageTexture {
+          url [
+            "textures/water.jpg"
+          ]
+        }
+      }
+      geometry Box {
+        size 0.1 0.1 0.1
+      }
+    }
+  ]
+  name "solid(6)"
+  boundingObject USE fk
+  physics Physics {
+  }
+}

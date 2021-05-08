@@ -1,0 +1,368 @@
+#VRML_SIM R2020a utf8
+WorldInfo {
+  contactProperties [
+    ContactProperties {
+      coulombFriction [
+        0.5
+      ]
+    }
+  ]
+}
+Viewpoint {
+  orientation 0.014504490373757456 -0.8382079745531988 -0.5451577855579257 3.1973608020218647
+  position 0.3798872146645316 7.709941677156697 -2.385848946824571
+  follow "myrobot"
+}
+TexturedBackground {
+}
+TexturedBackgroundLight {
+}
+RectangleArena {
+  floorSize 10 10
+  floorTileSize 1 1
+}
+DEF myrobot Robot {
+  translation 0 0.06 0
+  children [
+    DEF LEFT_EYE DistanceSensor {
+      translation -0.16 -0.05 0.155
+      rotation 0 1 0 3.14
+      children [
+        DEF SENSOR Transform {
+          rotation 0 0 1 1.57
+          children [
+            Shape {
+              appearance PBRAppearance {
+                baseColor 0.975691 0.981481 0.0252992
+                roughness 1
+                metalness 0
+              }
+              geometry Cylinder {
+                height 0.004
+                radius 0.008
+              }
+            }
+          ]
+        }
+      ]
+      name "ds0"
+      lookupTable [
+        0 1024 0
+        0.05 1024 0
+        0.15 0 0
+      ]
+      numberOfRays 2
+      aperture 1
+    }
+    DEF RIGHT_EYE DistanceSensor {
+      translation -0.16 -0.05 -0.155
+      rotation 0 1 0 3.14
+      children [
+        USE SENSOR
+      ]
+      name "ds1"
+      lookupTable [
+        0 1024 0
+        0.05 1024 0
+        0.15 0 0
+      ]
+      numberOfRays 2
+      aperture 1
+    }
+    DEF receiver111 Receiver {
+      name "receiver111"
+      type "serial"
+      channel 1
+    }
+    HingeJoint {
+      jointParameters HingeJointParameters {
+        axis 0 0 1
+        anchor -0.1 -0.035 0
+      }
+      endPoint Solid {
+        translation -0.1 -0.035 0
+        rotation -1 0 0 1.57
+        children [
+          DEF wheel5 Shape {
+            appearance Appearance {
+              texture ImageTexture {
+                url [
+                  "textures/carpet.jpg"
+                ]
+              }
+            }
+            geometry Cylinder {
+              height 0.01
+              radius 0.025
+            }
+          }
+        ]
+        name "solid(4)"
+        boundingObject USE wheel5
+        physics Physics {
+        }
+      }
+    }
+    HingeJoint {
+      jointParameters HingeJointParameters {
+        axis 0 0 1
+        anchor 0 0 0.155
+      }
+      device [
+        DEF position_sensor_right PositionSensor {
+          name "position_sensor_right"
+        }
+        DEF motor_right RotationalMotor {
+          name "motor_right"
+          maxVelocity 50
+        }
+      ]
+      endPoint Solid {
+        translation 0 0 0.155
+        rotation -1 0 0 1.57
+        children [
+          DEF wheel3 Shape {
+            appearance Appearance {
+              texture ImageTexture {
+                url [
+                  "textures/carpet.jpg"
+                ]
+              }
+            }
+            geometry Cylinder {
+              height 0.01
+              radius 0.06
+            }
+          }
+        ]
+        name "solid(1)"
+        boundingObject USE wheel3
+        physics Physics {
+        }
+      }
+    }
+    HingeJoint {
+      jointParameters HingeJointParameters {
+        axis 0 0 1
+        anchor 0 0 -0.155
+      }
+      device [
+        DEF position_sensor_left PositionSensor {
+          name "position_sensor_left"
+        }
+        DEF motor_left RotationalMotor {
+          name "motor_left"
+          maxVelocity 50
+        }
+      ]
+      endPoint Solid {
+        translation 0 0 -0.155
+        rotation -1 0 0 1.57
+        children [
+          DEF wheel4 Shape {
+            appearance Appearance {
+              texture ImageTexture {
+                url [
+                  "textures/carpet.jpg"
+                ]
+              }
+            }
+            geometry Cylinder {
+              height 0.01
+              radius 0.06
+            }
+          }
+        ]
+        name "solid(2)"
+        boundingObject USE wheel4
+        physics Physics {
+        }
+      }
+    }
+    DEF body Shape {
+      appearance Appearance {
+        texture ImageTexture {
+          url [
+            "textures/desktop_wood.jpg"
+          ]
+        }
+      }
+      geometry Cylinder {
+        height 0.02
+        radius 0.15
+      }
+    }
+  ]
+  name "myrobot"
+  boundingObject USE body
+  physics Physics {
+  }
+  controller "my_controller"
+  supervisor TRUE
+}
+Group {
+  children [
+    Solid {
+      translation -3.28 0.125 1.49
+      children [
+        DEF eeee Shape {
+          appearance Appearance {
+            texture ImageTexture {
+              url [
+                "textures/rock.jpg"
+              ]
+            }
+          }
+          geometry Cylinder {
+            height 0.5
+            radius 0.3
+          }
+        }
+      ]
+      name "solid(5)"
+      boundingObject USE eeee
+      physics Physics {
+      }
+    }
+    Solid {
+      translation 0.88 0.125 -3.53
+      children [
+        DEF dddd Shape {
+          appearance Appearance {
+            texture ImageTexture {
+              url [
+                "textures/rock.jpg"
+              ]
+            }
+          }
+          geometry Box {
+            size 0.8 0.25 0.1
+          }
+        }
+      ]
+      name "solid(4)"
+      boundingObject USE dddd
+      physics Physics {
+      }
+    }
+    Solid {
+      translation -2.69 0.30999 3.22
+      rotation 0.1294279597735375 0.1294279597735375 0.9831056944488314 1.58784
+      children [
+        DEF dddd Shape {
+          appearance Appearance {
+            texture ImageTexture {
+              url [
+                "textures/interlaced_parquetry.jpg"
+              ]
+            }
+          }
+          geometry DEF cccc Box {
+            size 0.6 1 0.2
+          }
+        }
+      ]
+      name "solid(3)"
+      boundingObject USE dddd
+      physics Physics {
+      }
+    }
+    Solid {
+      translation 2.44 0.5 3.6423
+      rotation 1 0 0 0
+      children [
+        Shape {
+          appearance Appearance {
+            texture ImageTexture {
+              url [
+                "textures/interlaced_parquetry.jpg"
+              ]
+            }
+          }
+          geometry DEF cccc Box {
+            size 0.6 1 0.5
+          }
+        }
+      ]
+      name "solid(2)"
+      boundingObject USE cccc
+      physics Physics {
+      }
+    }
+    Solid {
+      translation -1.68 0.125 -3.86
+      children [
+        Shape {
+          appearance Appearance {
+            texture ImageTexture {
+              url [
+                "textures/red_brick_wall.jpg"
+              ]
+            }
+          }
+          geometry DEF bbbb Box {
+            size 0.9 0.25 0.5
+          }
+        }
+      ]
+      name "solid(1)"
+      boundingObject USE bbbb
+      physics Physics {
+      }
+    }
+    Solid {
+      translation 3.44 0.125 1.66
+      rotation 0 1 0 1.0472
+      children [
+        Shape {
+          appearance Appearance {
+            texture ImageTexture {
+              url [
+                "textures/grass.jpg"
+              ]
+            }
+          }
+          geometry DEF aaaa Box {
+            size 0.6 0.25 0.3
+          }
+        }
+      ]
+      boundingObject Box {
+        size 0.1 0.1 0.1
+      }
+      physics Physics {
+      }
+    }
+  ]
+}
+DEF object Robot {
+  translation 2.51 0.05 4.17
+  children [
+    DEF fk Shape {
+      appearance Appearance {
+        texture ImageTexture {
+          url [
+            "textures/water.jpg"
+          ]
+        }
+      }
+      geometry Box {
+        size 0.1 0.1 0.1
+      }
+    }
+    Emitter {
+      boundingObject USE fk
+      physics Physics {
+      }
+      type "serial"
+      range 10
+      channel 1
+    }
+  ]
+  name "emitter_object"
+  boundingObject USE fk
+  physics Physics {
+  }
+  controller "my_controller"
+  supervisor TRUE
+}
