@@ -1,3 +1,3 @@
 # LYrobot_Undergraduate
 
-Some projects can not be made public.
+Most of the projects can not be made public.
